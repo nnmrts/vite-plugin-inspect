@@ -159,7 +159,8 @@ export default function PluginInspect(options: ViteInspectOptions = {}): Plugin 
           }, 100)
 
           devtoolsCtx.viteServer.middlewares.use((req: any, res: any, next: any) => {
-            debouncedBroadcast()
+            if (!req.url?.startsWith('/__devtools/'))
+              debouncedBroadcast()
             next()
           })
         }
